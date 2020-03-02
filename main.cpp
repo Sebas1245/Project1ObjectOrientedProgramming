@@ -10,5 +10,6 @@ int main(){
     getline(cin, nombreArchEntrada);
     ifstream archEntrada;
     archEntrada.open(nombreArchEntrada);
+    
 return 0;
 }
