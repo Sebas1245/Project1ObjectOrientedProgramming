@@ -75,14 +75,43 @@ int main(){
     ofstream archSalida;
     archSalida.open(nombreArchSalida);
     // obtengo la linea que me indica el "codigo" a utilizar
+    string codigo;
+    getline(archEntrada,codigo);
     char arrCodigo[14];
-    for (int i = 0; i < 14; i++) {
-        archEntrada >> arrCodigo[i];
+    for (int i = 0; i < 28; i+=2) {
+        arrCodigo[i/2] = codigo[i];
     }
-    string lineaOperacion;
+    string lineaOperacion, signo;
+    int parte1, parte2, resultado, espacio1, espacio2;
     while (getline(archEntrada,lineaOperacion)) {
         transformar(lineaOperacion,arrCodigo);
-        archSalida << lineaOperacion << endl;
+        //encontrar los espacios
+        espacio1 = lineaOperacion.find(' ');
+        espacio2 = lineaOperacion.find(lineaOperacion.substr((espacio1+2)));
+        // encontrar primera parte y convertir a int
+        parte1 = stoi(lineaOperacion.substr(0,espacio1));
+        // encontrar signo en string
+        signo = lineaOperacion.substr((espacio1+1),1);
+        // encontrar segunda parte y convertir a int
+        parte2 = stoi(lineaOperacion.substr(espacio2+1));
+        // poner todo en var resultado donde se realice la operacion dependiendo del signo es que operación se realiza
+        if (signo == "+") {
+            resultado = parte1 + parte2;
+        }
+        else if (signo == "-") {
+            resultado = parte1 - parte2;
+        }
+        else if (signo == "*") {
+            resultado = parte1 * parte2;
+        }
+        else if (signo == "/") {
+            resultado = parte1/parte2;
+        }
+        else {
+            resultado = -1;
+            cout << "Error operacion no reconocida" << endl;
+        }
+        archSalida << lineaOperacion << " = " << resultado << endl;
     }
     archEntrada.close();
     archSalida.close();
