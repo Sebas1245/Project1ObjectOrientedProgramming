@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <fstream>
+#include <cmath>
 
 using namespace std;
 
@@ -61,6 +62,20 @@ void transformar(string &operacion, char arr[]) {
     }
 }
 
+int stringToInt(string str) {
+    int number = 0, numASumar;
+    char stringChar;
+    for (int i = 0; i < str.length(); i++) {
+        stringChar = str[i];
+        numASumar = (int(stringChar)-48);
+        if (i <= (str.length()-1)) {
+            number *= 10;
+        }
+        number += numASumar;
+    }
+    return number;
+}
+
 int main(){
     // pido los nombres de los archivos
     cout << "Teclee el nombre del archivo que se debe analizar con la extension .txt " << endl;
@@ -89,11 +104,13 @@ int main(){
         espacio1 = lineaOperacion.find(' ');
         espacio2 = lineaOperacion.find(lineaOperacion.substr((espacio1+2)));
         // encontrar primera parte y convertir a int
-        parte1 = stoi(lineaOperacion.substr(0,espacio1));
+        parte1 = stringToInt(lineaOperacion.substr(0,espacio1));
+        cout << parte1 << endl;
         // encontrar signo en string
         signo = lineaOperacion.substr((espacio1+1),1);
         // encontrar segunda parte y convertir a int
-        parte2 = stoi(lineaOperacion.substr(espacio2+1));
+        parte2 = stringToInt(lineaOperacion.substr(espacio2+1));
+        cout << "Parte 2" <<parte2 << endl;
         // poner todo en var resultado donde se realice la operacion dependiendo del signo es que operación se realiza
         if (signo == "+") {
             resultado = parte1 + parte2;
@@ -115,5 +132,5 @@ int main(){
     }
     archEntrada.close();
     archSalida.close();
-return 0;
+    return 0;
 }
