@@ -8,6 +8,9 @@ using namespace std;
 //Regresa: no regresa valores 
 void transformar(string &operacion, char arr[]) {
     for (int i = 0; i < operacion.length(); i++){
+        // hago una comparación entre el arreglo del codigo y el string que leí del archivo. Si el caracter que saco del
+        // string es igual a lo que tengo en un cierto índice del arreglo, cambio el valor del caracter del string al 
+        // valor del indice en el string
         if (operacion[i] == arr[0]) {
             operacion[i] = '0';
         }
@@ -67,11 +70,14 @@ int stringToInt(string str) {
     int number = 0, numASumar;
     char stringChar;
     for (int i = 0; i < str.length(); i++) {
+        // guardo el caracter analizado y lo convierto a entero
         stringChar = str[i];
         numASumar = (int(stringChar)-48);
+        // reviso, si tiene un numero al lado debo multiplicarlo por diez porque tendré que "recorrer el putno"
         if (i <= (str.length()-1)) {
             number *= 10;
         }
+        // voy añadiendo el caracter perteneciente al string ya convertido
         number += numASumar;
     }
     return number;
@@ -82,7 +88,9 @@ int stringToInt(string str) {
 // Recibe el string fileName (nombre del archivo)
 // Regresa el string fileName como parámetro por referencia
 void validateFileEnding(string &fileName){
+    // encuentro la terminación del archivo después del punto
     string fileEnding = fileName.substr(fileName.find('.')+1,4);
+    // mientras que el archivo no termine en .txt debo seguir pidiendolo 
     while (fileEnding != "txt") {
         cout << "Error, el archivo no termina en .txt" << endl;
         cout << "Intentalo nuevamente " << endl;
