@@ -75,15 +75,28 @@ int stringToInt(string str) {
     }
     return number;
 }
+void validateFileEnding(string &fileName){
+    string fileEnding = fileName.substr(fileName.find('.')+1,4);
+    while (fileEnding != "txt") {
+        cout << "Error, el archivo no termina en .txt" << endl;
+        cout << "Intentalo nuevamente " << endl;
+        getline(cin,fileName);
+        fileEnding = fileName.substr((fileName.find('.'),4));
+    }
+}
 
 int main(){
     // pido los nombres de los archivos
     cout << "Teclee el nombre del archivo que se debe analizar con la extension .txt " << endl;
     string nombreArchEntrada;
     getline(cin, nombreArchEntrada);
+    // valido que el archivo termine en txt
+    validateFileEnding(nombreArchEntrada);
     cout << "Ahora teclee el nombre del archivo de salida con la extension .txt" << endl;
     string nombreArchSalida;
     getline(cin,nombreArchSalida);
+    // valido que el archivo termine en txt
+    validateFileEnding(nombreArchSalida);
     // abro los archivos con los nombres dados
     ifstream archEntrada;
     archEntrada.open(nombreArchEntrada);
@@ -105,12 +118,10 @@ int main(){
         espacio2 = lineaOperacion.find(lineaOperacion.substr((espacio1+2)));
         // encontrar primera parte y convertir a int
         parte1 = stringToInt(lineaOperacion.substr(0,espacio1));
-        cout << parte1 << endl;
         // encontrar signo en string
         signo = lineaOperacion.substr((espacio1+1),1);
         // encontrar segunda parte y convertir a int
         parte2 = stringToInt(lineaOperacion.substr(espacio2+1));
-        cout << "Parte 2" <<parte2 << endl;
         // poner todo en var resultado donde se realice la operacion dependiendo del signo es que operación se realiza
         if (signo == "+") {
             resultado = parte1 + parte2;
