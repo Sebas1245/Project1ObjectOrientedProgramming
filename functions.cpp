@@ -25,8 +25,7 @@ void transformar(string &operacion, char arr[]) {
         }
         else if (operacion[i] == arr[4]){
             operacion[i] = '4';
-        }
-        
+        } 
         else if (operacion[i] == arr[5]) {
             operacion[i] = '5';
         }
@@ -89,12 +88,12 @@ int stringToInt(string str) {
 // Regresa el string fileName como parámetro por referencia
 void validateFileEnding(string &fileName){
     // encuentro la terminación del archivo después del punto
-    string fileEnding = fileName.substr(fileName.find('.')+1,4);
+    string fileEnding = fileName.substr(fileName.length()-3,3);
     // mientras que el archivo no termine en .txt debo seguir pidiendolo 
     while (fileEnding != "txt") {
         cout << "Error, el archivo no termina en .txt" << endl;
         cout << "Intentalo nuevamente " << endl;
         getline(cin,fileName);
-        fileEnding = fileName.substr((fileName.find('.'),4));
+        fileEnding = fileName.substr(fileName.length()-3,3);
     }
 }
